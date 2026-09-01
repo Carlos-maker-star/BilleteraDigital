@@ -1,0 +1,52 @@
+<body class="relative min-h-screen flex items-center justify-center px-4 py-10 overflow-hidden">
+  <div class="glow"></div>
+
+  <div class="relative z-10 w-full max-w-md">
+    <!-- Card -->
+    <div
+      class="rounded-3xl p-7 sm:p-8"
+      style="background: var(--surface); border: 1px solid var(--border)"
+    >
+      <!-- Tabs -->
+      <div
+        class="relative flex mb-7 p-1 rounded-2xl"
+        style="background: var(--bg-app); border: 1px solid var(--border)"
+      >
+        <div
+          class="tab-indicator"
+          [style.transform]="activeTab === 'login' ? 'translateX(0%)' : 'translateX(100%)'"
+        ></div>
+
+        <button
+          (click)="showTab('login')"
+          class="tab-btn relative z-10 w-1/2 py-2.5 text-sm font-semibold rounded-xl"
+          [class.active]="activeTab === 'login'"
+        >
+          Iniciar sesión
+        </button>
+
+        <button
+          (click)="showTab('register')"
+          class="tab-btn relative z-10 w-1/2 py-2.5 text-sm font-semibold rounded-xl"
+          [class.active]="activeTab === 'register'"
+        >
+          Crear cuenta
+        </button>
+      </div>
+
+      @if (activeTab === 'login') {
+        <!-- LOGIN PANEL -->
+        <login-panel></login-panel>
+      } @else {
+        <!-- REGISTER PANEL -->
+        <register-panel></register-panel>
+      }
+    </div>
+
+    <p class="text-center text-xs mt-6" style="color: var(--text-muted)">
+      Al continuar, aceptas nuestros
+      <a href="#" class="font-medium" style="color: var(--accent-2)">Términos</a> y
+      <a href="#" class="font-medium" style="color: var(--accent-2)">Privacidad</a>.
+    </p>
+  </div>
+</body>

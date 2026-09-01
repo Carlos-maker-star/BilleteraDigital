@@ -1,0 +1,107 @@
+@import 'tailwindcss';
+
+.mark {
+  background: conic-gradient(from 220deg, var(--accent), var(--accent-2), var(--accent));
+  filter: drop-shadow(0 0 12px rgba(124, 92, 252, 0.45));
+}
+
+/* Ambient glow behind the card — the signature element */
+.glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.glow::before,
+.glow::after {
+  content: '';
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  border-radius: 9999px;
+  filter: blur(110px);
+  opacity: 0.28;
+}
+.glow::before {
+  background: var(--accent);
+  top: -180px;
+  left: 50%;
+  transform: translateX(-70%);
+}
+.glow::after {
+  background: var(--accent-2);
+  bottom: -200px;
+  left: 50%;
+  transform: translateX(20%);
+}
+
+.field {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+.field::placeholder {
+  color: #565d71;
+}
+.field:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--surface-2);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), #6647e0);
+  transition:
+    filter 0.15s ease,
+    transform 0.1s ease;
+}
+.btn-primary:hover {
+  filter: brightness(1.08);
+}
+.btn-primary:active {
+  transform: scale(0.99);
+}
+
+.tab-btn {
+  transition: color 0.18s ease;
+  color: var(--text-muted);
+}
+.tab-btn.active {
+  color: var(--text-primary);
+}
+
+.tab-indicator {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  width: calc(50% - 4px);
+  border-radius: 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  transition: transform 0.28s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.panel {
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}

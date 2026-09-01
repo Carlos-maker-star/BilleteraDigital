@@ -1,0 +1,63 @@
+<!-- SIDEBAR -->
+<aside
+  class="w-[300px] h-full shrink-0 flex flex-col justify-between border-r"
+  style="background: var(--bg-sidebar); border-color: var(--border)"
+>
+  <div>
+    <!-- Logo -->
+    <div class="flex items-center gap-2.5 px-6 py-6">
+      <div class="mark w-7 h-7 rounded-[9px]"></div>
+      <span
+        class="font-display font-semibold text-[17px] tracking-tight"
+        style="color: var(--text-primary)"
+        >App Carlos</span
+      >
+    </div>
+
+    <!-- Nav -->
+    <nav class="px-4 mt-2 flex flex-col gap-0.5">
+      @for (item of menuOptions(); track item.router) {
+        <a
+          [routerLink]="item.router"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-item flex items-center gap-3 pl-3.5 pr-3 py-2.5 rounded-xl text-sm font-medium"
+          style="color: var(--text-primary)"
+        >
+          <span class="rail"></span>
+          <i [class]="item.icon"></i>
+          {{ item.label }}
+        </a>
+      }
+    </nav>
+  </div>
+
+  <!-- Salir -->
+  <div class="px-4 py-4 border-t" style="border-color: var(--border)">
+    <button
+      class="w-full flex items-center gap-3 px-2.5 py-2 rounded-xl hover:bg-white/[0.03] transition-colors"
+      (click)="logout()"
+    >
+      <div
+        class="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
+        style="background: var(--surface-2); border: 1px solid var(--border)"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#EF6461"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+          <path d="M16 17l5-5-5-5" />
+          <path d="M21 12H9" />
+        </svg>
+      </div>
+      <span class="text-sm font-medium" style="color: var(--text-primary)">Salir</span>
+    </button>
+  </div>
+</aside>

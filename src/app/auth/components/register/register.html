@@ -1,0 +1,133 @@
+<div class="panel">
+  <h1 class="font-display text-2xl font-semibold" style="color: var(--text-primary)">
+    Crea tu cuenta
+  </h1>
+  <p class="text-sm mt-1 mb-6" style="color: var(--text-muted)">Completa tus datos para empezar.</p>
+
+  <form class="flex flex-col gap-4" (ngSubmit)="onRegisterSubmit()">
+    <div>
+      <label
+        for="regName"
+        class="block text-xs font-medium mb-1.5"
+        style="color: var(--text-muted)"
+      >
+        Nombre completo
+      </label>
+      <input
+        name="name"
+        [(ngModel)]="name"
+        id="regName"
+        type="text"
+        appOnlyLetters
+        placeholder="Tom Cook"
+        required
+        class="field w-full px-3.5 py-2.5 rounded-xl text-sm"
+      />
+    </div>
+
+    <div>
+      <label
+        for="regEmail"
+        class="block text-xs font-medium mb-1.5"
+        style="color: var(--text-muted)"
+      >
+        Correo electrónico
+      </label>
+      <input
+        id="regEmail"
+        name="email"
+        [(ngModel)]="email"
+        type="email"
+        placeholder="tucorreo@ejemplo.com"
+        required
+        class="field w-full px-3.5 py-2.5 rounded-xl text-sm"
+      />
+    </div>
+
+    <div>
+      <label
+        for="regPassword"
+        class="block text-xs font-medium mb-1.5"
+        style="color: var(--text-muted)"
+      >
+        Contraseña
+      </label>
+      <div class="relative">
+        <input
+          id="regPassword"
+          name="password"
+          [(ngModel)]="password"
+          [type]="showRegPassword() ? 'text' : 'password'"
+          placeholder="Mínimo 8 caracteres"
+          required
+          minlength="8"
+          class="field w-full px-3.5 py-2.5 pr-10 rounded-xl text-sm"
+        />
+        <button
+          type="button"
+          (click)="togglePassword()"
+          aria-label="Mostrar contraseña"
+          class="absolute right-3 top-1/2 -translate-y-1/2"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            [attr.stroke]="showRegPassword() ? '#22D3C5' : '#565D71'"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="space-y-1.5">
+      <!-- Contenedor del fondo de la barra -->
+      <div class="w-full h-2 bg-slate-700 rounded-full overflow-hidden">
+        <!-- Relleno dinámico según la longitud -->
+        <div
+          class="h-full transition-all duration-300 rounded-full"
+          [style.width.%]="strengthPercent()"
+          [class.bg-rose-500]="password().length > 0 && password().length < 8"
+          [class.bg-emerald-500]="isPasswordValid()"
+        ></div>
+      </div>
+
+      <!-- Texto descriptivo con colores de estado -->
+      <div class="flex items-center justify-between text-xs">
+        <span class="text-slate-400">Requisito: Mínimo 8 caracteres</span>
+
+        @if (password().length === 0) {
+          <span class="text-slate-500 font-medium">Vacío</span>
+        } @else if (!isPasswordValid()) {
+          <span class="text-rose-400 font-medium"
+            >Incompleto (Faltan {{ 8 - password().length }})</span
+          >
+        } @else {
+          <span class="text-emerald-400 font-medium flex items-center gap-1">
+            <i class="fa-solid fa-circle-check"></i> Válido
+          </span>
+        }
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="!isFormValid()"
+      class="w-full py-2 rounded-xl font-medium transition-all duration-200"
+      [class.bg-indigo-600]="isFormValid()"
+      [class.text-white]="isFormValid()"
+      [class.hover:bg-indigo-700]="isFormValid()"
+      [class.bg-slate-700]="!isFormValid()"
+      [class.text-slate-500]="!isFormValid()"
+      [class.cursor-not-allowed]="!isFormValid()"
+    >
+      Crear cuenta
+    </button>
+  </form>
+</div>

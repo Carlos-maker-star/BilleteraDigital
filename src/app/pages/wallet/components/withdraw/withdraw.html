@@ -1,0 +1,40 @@
+<div class="space-y-4">
+  <div>
+    <label class="text-xs text-gray-400 mb-1 block">Monto a retirar (S/)</label>
+    <input
+      type="number"
+      min="0"
+      step="0.01"
+      [ngModel]="amountInput()"
+      (ngModelChange)="onAmountChange($event)"
+      placeholder="0.00"
+      class="w-full bg-black/30 border border-white/10 rounded-xl px-4 py-3 text-lg outline-none focus:border-cyan-400/60 transition-colors"
+    />
+
+    <div class="flex gap-2 mt-3">
+      @for (quick of [20, 50, 100, 200]; track quick) {
+        <button
+          type="button"
+          (click)="setQuickAmount(quick)"
+          class="px-3 py-1.5 text-xs rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 transition-colors"
+        >
+          S/ {{ quick }}
+        </button>
+      }
+    </div>
+  </div>
+
+  <button
+    type="button"
+    (click)="submitWithdrawal()"
+    [disabled]="isSubmitDisabled()"
+    class="w-full py-3 rounded-xl font-semibold bg-gradient-to-r from-cyan-500 to-violet-500 disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+  >
+    @if (isProcessing()) {
+      <span
+        class="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin"
+      ></span>
+    }
+    Confirmar Retiro
+  </button>
+</div>

@@ -1,1 +1,131 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --bg-app: #05070c;
+  --bg-sidebar: #0a0d16;
+  --surface: #10131f;
+  --surface-2: #151a29;
+  --border: #1d2233;
+  --text-primary: #f2f3f7;
+  --text-muted: #868c9e;
+  --accent: #7c5cfc;
+  --accent-2: #22d3c5;
+}
+html,
+body {
+  background: var(--bg-app);
+  font-family: 'Inter', sans-serif;
+}
+.font-display {
+  font-family: 'Space Grotesk', sans-serif;
+}
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+::selection {
+  background: var(--accent);
+  color: white;
+}
+
+/* Signature: dual-tone glow mark */
+.mark {
+  background: conic-gradient(from 220deg, var(--accent), var(--accent-2), var(--accent));
+  filter: drop-shadow(0 0 12px rgba(124, 92, 252, 0.45));
+}
+
+.nav-item {
+  position: relative;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease;
+}
+.nav-item .rail {
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 0;
+  border-radius: 99px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  transition: height 0.2s ease;
+}
+.nav-item.active .rail {
+  height: 20px;
+}
+.nav-item.active {
+  background: var(--surface-2);
+  color: var(--text-primary);
+}
+.nav-item:not(.active):hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-primary);
+}
+
+.status-dot {
+  box-shadow: 0 0 0 3px var(--bg-sidebar);
+}
+.pulse::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 99px;
+  background: var(--accent-2);
+  opacity: 0.6;
+  animation: pulse-ring 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  70% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.card-hover:hover {
+  border-color: #2a3149;
+  background: var(--surface-2);
+}
+
+.progress-track {
+  background: #1b2033;
+}
+.progress-fill {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #232a3d;
+  border-radius: 99px;
+}
+
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse::after {
+    animation: none;
+    display: none;
+  }
+  * {
+    transition: none !important;
+  }
+}

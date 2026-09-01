@@ -1,0 +1,103 @@
+<!-- LOGIN PANEL -->
+<div class="panel">
+  <h1 class="font-display text-2xl font-semibold" style="color: var(--text-primary)">
+    Hola de nuevo
+  </h1>
+  <p class="text-sm mt-1 mb-6" style="color: var(--text-muted)">
+    Ingresa tus datos para acceder a tu cuenta.
+  </p>
+
+  <form class="flex flex-col gap-4" (ngSubmit)="onLoginSubmit()">
+    <div>
+      <label
+        for="loginEmail"
+        class="block text-xs font-medium mb-1.5"
+        style="color: var(--text-muted)"
+      >
+        Correo electrónico
+      </label>
+      <input
+        id="loginEmail"
+        name="email"
+        type="email"
+        [(ngModel)]="email"
+        placeholder="tucorreo@ejemplo.com"
+        required
+        class="field w-full px-3.5 py-2.5 rounded-xl text-sm"
+      />
+    </div>
+
+    <div>
+      <div class="flex items-center justify-between mb-1.5">
+        <label
+          for="loginPassword"
+          class="block text-xs font-medium"
+          style="color: var(--text-muted)"
+        >
+          Contraseña
+        </label>
+        <a href="#" class="text-xs font-medium" style="color: var(--accent-2)"
+          >¿Olvidaste tu contraseña?</a
+        >
+      </div>
+      <div class="relative">
+        <input
+          id="loginPassword"
+          name="password"
+          [type]="showLoginPassword() ? 'text' : 'password'"
+          [(ngModel)]="password"
+          placeholder="••••••••"
+          required
+          class="field w-full px-3.5 py-2.5 pr-10 rounded-xl text-sm"
+        />
+        <button
+          type="button"
+          (click)="togglePassword()"
+          aria-label="Mostrar contraseña"
+          class="absolute right-3 top-1/2 -translate-y-1/2"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            [attr.stroke]="showLoginPassword() ? '#22D3C5' : '#565D71'"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="!isFormValid()"
+      class="w-full py-2 rounded-xl font-medium transition-all duration-200"
+      [class.bg-indigo-600]="isFormValid()"
+      [class.text-white]="isFormValid()"
+      [class.hover:bg-indigo-700]="isFormValid()"
+      [class.bg-slate-700]="!isFormValid()"
+      [class.text-slate-500]="!isFormValid()"
+      [class.cursor-not-allowed]="!isFormValid()"
+    >
+      Iniciar sesión
+    </button>
+  </form>
+
+  <div class="flex items-center gap-3 my-6">
+    <div class="h-px flex-1" style="background: var(--border)"></div>
+    <span class="text-xs" style="color: var(--text-muted)">o inicia sesion con</span>
+    <div class="h-px flex-1" style="background: var(--border)"></div>
+  </div>
+
+  <button
+    (click)="onLoginDemo()"
+    class="bg-indigo-600 w-full py-2.5 rounded-xl text-sm font-semibold text-white"
+  >
+    User Demo
+  </button>
+</div>

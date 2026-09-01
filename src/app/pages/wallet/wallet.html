@@ -1,0 +1,120 @@
+<div class="min-h-screen bg-[#0a0a0f] text-white p-6 sm:p-10">
+  <div class="w-full h-full min-h-screen space-y-6">
+    <!-- Encabezado de la sección -->
+    <div>
+      <h1 class="text-2xl font-bold">Billetera</h1>
+      <p class="text-sm text-gray-400">Gestiona tus depósitos y retiros</p>
+    </div>
+
+    <!-- Tarjeta de saldo -->
+    <div
+      class="rounded-2xl p-6 bg-gradient-to-br from-cyan-500/10 to-violet-500/10 border border-white/10"
+    >
+      <p class="text-sm text-gray-400">Saldo disponible</p>
+      <p class="text-4xl font-bold mt-1">S/ {{ balance() | number: '1.2-2' }}</p>
+    </div>
+
+    <!-- Tarjeta principal del formulario -->
+    <div class="rounded-2xl bg-[#111118] border border-white/10 p-6 space-y-5">
+      <!-- Tabs para elegir entre Depositar y Retirar -->
+      <div class="flex gap-2 bg-black/30 p-1 rounded-xl">
+        <button
+          type="button"
+          (click)="selectTab('deposit')"
+          [class.bg-gradient-to-r]="activeTab() === 'deposit'"
+          [class.from-cyan-500]="activeTab() === 'deposit'"
+          [class.to-violet-500]="activeTab() === 'deposit'"
+          [class.text-white]="activeTab() === 'deposit'"
+          [class.text-gray-400]="activeTab() !== 'deposit'"
+          class="flex-1 py-2 rounded-lg text-sm font-semibold transition-colors"
+        >
+          Depositar
+        </button>
+        <button
+          type="button"
+          (click)="selectTab('withdraw')"
+          [class.bg-gradient-to-r]="activeTab() === 'withdraw'"
+          [class.from-cyan-500]="activeTab() === 'withdraw'"
+          [class.to-violet-500]="activeTab() === 'withdraw'"
+          [class.text-white]="activeTab() === 'withdraw'"
+          [class.text-gray-400]="activeTab() !== 'withdraw'"
+          class="flex-1 py-2 rounded-lg text-sm font-semibold transition-colors"
+        >
+          Retirar
+        </button>
+      </div>
+
+      <!-- Notificaciones globales -->
+      @if (errorMessage()) {
+        <div
+          class="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2"
+        >
+          {{ errorMessage() }}
+        </div>
+      }
+
+      @if (successMessage()) {
+        <div
+          class="text-sm text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-lg px-3 py-2"
+        >
+          {{ successMessage() }}
+        </div>
+      }
+
+      <!-- Renderizado condicional de los subcomponentes -->
+      @if (activeTab() === 'deposit') {
+        <app-deposit-form
+          [isProcessing]="isProcessing()"
+          (onSubmitDeposit)="handleDeposit($event)"
+        />
+      } @else {
+        <app-withdraw-form
+          [balance]="balance()"
+          [isProcessing]="isProcessing()"
+          (onSubmitWithdrawal)="handleWithdrawal($event)"
+        />
+      }
+    </div>
+
+    <!-- Historial de movimientos -->
+    <div class="rounded-2xl bg-[#111118] border border-white/10 p-6">
+      <h2 class="text-sm font-semibold text-gray-300 mb-3">Historial reciente</h2>
+
+      @if (walletService.userTransactions().length === 0) {
+        <p class="text-sm text-gray-500">Aún no tienes movimientos.</p>
+      } @else {
+        <ul class="divide-y divide-white/5">
+          @for (tx of walletService.userTransactions(); track tx.id) {
+            <li class="flex items-center justify-between py-3">
+              <div class="flex items-center gap-3">
+                <span
+                  class="w-8 h-8 rounded-full flex items-center justify-center text-xs"
+                  [class.bg-emerald-500/15]="tx.type === 'DEPOSIT'"
+                  [class.text-emerald-400]="tx.type === 'DEPOSIT'"
+                  [class.bg-red-500/15]="tx.type === 'WITHDRAWAL'"
+                  [class.text-red-400]="tx.type === 'WITHDRAWAL'"
+                >
+                  {{ tx.type === 'DEPOSIT' ? '↓' : '↑' }}
+                </span>
+                <div>
+                  <p class="text-sm font-medium">
+                    {{ tx.type === 'DEPOSIT' ? 'Depósito' : 'Retiro' }}
+                  </p>
+                  <p class="text-xs text-gray-500">{{ tx.date | date: 'dd/MM/yyyy HH:mm' }}</p>
+                </div>
+              </div>
+
+              <span
+                class="text-sm font-semibold"
+                [class.text-emerald-400]="tx.type === 'DEPOSIT'"
+                [class.text-red-400]="tx.type === 'WITHDRAWAL'"
+              >
+                {{ tx.type === 'DEPOSIT' ? '+' : '-' }} S/ {{ tx.amount | number: '1.2-2' }}
+              </span>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  </div>
+</div>
