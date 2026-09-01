@@ -8,10 +8,7 @@ import { AuthService } from '../../../auth/services/auth.service';
 })
 export class WalletService {
   private authService = inject(AuthService);
-
-  private readonly SESSION_KEY = 'wallet_session';
   private readonly TRANSACTIONS_KEY = 'wallet_transactions';
-  private readonly USERS_KEY = 'wallet_users';
 
   // Usamos la sesión activa del AuthService directamente
   currentUser = computed(() => this.authService.userSession());
