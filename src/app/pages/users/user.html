@@ -1,89 +1,90 @@
-<!-- Contenedor principal: ocupa todo el ancho/alto del layout, mismo fondo oscuro que el resto de la app -->
-<div class="w-full h-full min-h-screen bg-[#0a0a0f] text-white p-6 sm:p-10">
-  <div class="w-full space-y-6">
-    <!-- Encabezado de la sección -->
+<!-- Contenedor principal: padding adaptable -->
+<div class="w-full min-h-screen bg-[#0a0a0f] text-white p-4 sm:p-8">
+  <div class="w-full space-y-6 max-w-7xl mx-auto">
+    <!-- Encabezado -->
     <div>
-      <h1 class="text-2xl font-bold">Mi Perfil</h1>
-      <p class="text-sm text-gray-400">Información de tu cuenta</p>
+      <h1 class="text-xl sm:text-2xl font-bold">Mi Perfil</h1>
+      <p class="text-xs sm:text-sm text-gray-400">Información de tu cuenta</p>
     </div>
 
-    <!-- Mensaje de error global, se muestra solo cuando errorMessage tiene contenido -->
+    <!-- Notificaciones -->
     @if (errorMessage()) {
       <div
-        class="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-2.5"
+        class="text-xs sm:text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-2.5"
       >
         {{ errorMessage() }}
       </div>
     }
 
-    <!-- Mensaje de éxito global, se muestra solo cuando successMessage tiene contenido -->
     @if (successMessage()) {
       <div
-        class="text-sm text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-lg px-4 py-2.5"
+        class="text-xs sm:text-sm text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-lg px-4 py-2.5"
       >
         {{ successMessage() }}
       </div>
     }
 
-    <!-- Fila principal: tarjeta de resumen + datos/seguridad, aprovechando todo el ancho -->
+    <!-- Grilla Adaptativa -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-      <!-- Tarjeta de resumen con avatar, nombre y saldo -->
+      <!-- Tarjeta Resumen -->
       <div
-        class="lg:col-span-1 rounded-2xl p-6 bg-gradient-to-br from-cyan-500/10 to-violet-500/10 border border-white/10 flex flex-col items-center text-center gap-3"
+        class="lg:col-span-1 rounded-2xl p-5 sm:p-6 bg-gradient-to-br from-cyan-500/10 to-violet-500/10 border border-white/10 flex flex-col items-center text-center gap-3"
       >
-        <!-- Avatar circular con iniciales, en gradiente cian/violeta igual al logo del sidebar -->
         <div
-          class="w-20 h-20 rounded-full bg-gradient-to-br from-cyan-500 to-violet-500 flex items-center justify-center text-2xl font-bold"
+          class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-cyan-500 to-violet-500 flex items-center justify-center text-xl sm:text-2xl font-bold"
         >
           {{ userInitials() }}
         </div>
 
-        <div>
-          <p class="text-lg font-semibold">{{ user().name }}</p>
-          <p class="text-sm text-gray-400">{{ user().email }}</p>
+        <div class="w-full overflow-hidden">
+          <p class="text-base sm:text-lg font-semibold truncate">{{ user().name }}</p>
+          <p class="text-xs sm:text-sm text-gray-400 truncate">{{ user().email }}</p>
         </div>
 
-        <!-- ID de usuario, dato de solo lectura -->
-        <div class="w-full bg-black/30 border border-white/10 rounded-lg px-3 py-2 mt-2">
-          <p class="text-[11px] text-gray-500 uppercase tracking-wide">ID de usuario</p>
-          <p class="text-sm font-mono text-gray-300 truncate">{{ user().id }}</p>
+        <!-- ID Usuario -->
+        <div class="w-full bg-black/30 border border-white/10 rounded-lg px-3 py-2 mt-1">
+          <p class="text-[10px] sm:text-[11px] text-gray-500 uppercase tracking-wide">
+            ID de usuario
+          </p>
+          <p class="text-xs sm:text-sm font-mono text-gray-300 break-all">{{ user().id }}</p>
         </div>
 
-        <!-- Fecha de creación de la cuenta -->
+        <!-- Fecha -->
         <div class="w-full bg-black/30 border border-white/10 rounded-lg px-3 py-2">
-          <p class="text-[11px] text-gray-500 uppercase tracking-wide">Miembro desde</p>
-          <p class="text-sm text-gray-300">{{ memberSince() | date: 'dd/MM/yyyy' }}</p>
+          <p class="text-[10px] sm:text-[11px] text-gray-500 uppercase tracking-wide">
+            Miembro desde
+          </p>
+          <p class="text-xs sm:text-sm text-gray-300">{{ memberSince() | date: 'dd/MM/yyyy' }}</p>
         </div>
       </div>
 
-      <!-- Columna derecha: datos personales (solo lectura) + seguridad -->
+      <!-- Columna Datos + Seguridad -->
       <div class="lg:col-span-2 space-y-6">
-        <!-- Tarjeta de datos personales: únicamente visualización, sin edición -->
-        <div class="rounded-2xl bg-[#111118] border border-white/10 p-6 space-y-5">
-          <h2 class="text-sm font-semibold text-gray-300">Datos personales</h2>
+        <div class="rounded-2xl bg-[#111118] border border-white/10 p-5 sm:p-6 space-y-4">
+          <h2 class="text-xs sm:text-sm font-semibold text-gray-300">Datos personales</h2>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <p class="text-xs text-gray-400 mb-1">Nombre completo</p>
-              <p class="text-sm bg-black/30 border border-white/10 rounded-xl px-4 py-3">
+              <p
+                class="text-xs sm:text-sm bg-black/30 border border-white/10 rounded-xl px-3.5 py-2.5 sm:px-4 sm:py-3 truncate"
+              >
                 {{ user().name }}
               </p>
             </div>
             <div>
               <p class="text-xs text-gray-400 mb-1">Correo electrónico</p>
-              <p class="text-sm bg-black/30 border border-white/10 rounded-xl px-4 py-3">
+              <p
+                class="text-xs sm:text-sm bg-black/30 border border-white/10 rounded-xl px-3.5 py-2.5 sm:px-4 sm:py-3 truncate"
+              >
                 {{ user().email }}
               </p>
             </div>
           </div>
         </div>
 
-        <!-- Tarjeta de seguridad / contraseña -->
-        <div class="rounded-2xl bg-[#111118] border border-white/10 p-6 space-y-4">
-          <div class="flex items-center justify-between">
-            <h2 class="text-sm font-semibold text-gray-300">Seguridad</h2>
-          </div>
-
+        <div class="rounded-2xl bg-[#111118] border border-white/10 p-5 sm:p-6 space-y-4">
+          <h2 class="text-xs sm:text-sm font-semibold text-gray-300">Seguridad</h2>
           <div>
             <p class="text-xs text-gray-400 mb-1">Contraseña</p>
             <div class="relative flex items-center">
@@ -91,19 +92,21 @@
                 [type]="showPassword() ? 'text' : 'password'"
                 [value]="user().password"
                 readonly
-                class="w-full bg-black/30 border border-white/10 rounded-xl pl-4 pr-12 py-3 text-sm text-gray-200 outline-none select-none"
+                class="w-full bg-black/30 border border-white/10 rounded-xl pl-4 pr-10 py-2.5 sm:py-3 text-xs sm:text-sm text-gray-200 outline-none select-none"
               />
-
-              <!-- Botón Icono (Ver / Ocultar) -->
               <button
                 type="button"
                 (click)="toggleShowPassword()"
-                class="absolute right-3 p-1.5 text-gray-400 hover:text-white transition-colors rounded-lg hover:bg-white/5"
+                class="absolute right-2.5 p-1 text-gray-400 hover:text-white transition-colors rounded-lg hover:bg-white/5"
                 [title]="showPassword() ? 'Ocultar contraseña' : 'Ver contraseña'"
               >
                 @if (showPassword()) {
-                  <!-- Icono Ojo Tachado (Ocultar) -->
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    class="w-4 h-4 sm:w-5 sm:h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       stroke-linecap="round"
                       stroke-linejoin="round"
@@ -118,8 +121,12 @@
                     />
                   </svg>
                 } @else {
-                  <!-- Icono Ojo (Ver) -->
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    class="w-4 h-4 sm:w-5 sm:h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       stroke-linecap="round"
                       stroke-linejoin="round"

@@ -129,7 +129,7 @@ export class AuthService {
 
       // Asignamos al user logueado
       this.userSession.set(sessionData);
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/dashboard/users']);
       return true;
     } else {
       return false;

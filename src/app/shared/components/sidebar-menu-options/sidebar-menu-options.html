@@ -1,17 +1,55 @@
+<!-- Botón Hamburguesa para Móviles (lg:hidden) -->
+<button
+  type="button"
+  (click)="toggleMobileMenu()"
+  class="lg:hidden fixed top-4 left-4 z-50 p-2.5 rounded-xl border text-white shadow-lg focus:outline-none"
+  style="background: var(--bg-sidebar); border-color: var(--border)"
+  aria-label="Abrir menú"
+>
+  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    @if (isMobileMenuOpen()) {
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M6 18L18 6M6 6l12 12"
+      />
+    } @else {
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M4 6h16M4 12h16M4 18h16"
+      />
+    }
+  </svg>
+</button>
+
+<!-- Fondo Traslúcido para Móviles (Backdrop) -->
+@if (isMobileMenuOpen()) {
+  <div
+    (click)="closeMobileMenu()"
+    class="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity"
+  ></div>
+}
+
 <!-- SIDEBAR -->
 <aside
-  class="w-[300px] h-full shrink-0 flex flex-col justify-between border-r"
+  [class.translate-x-0]="isMobileMenuOpen()"
+  [class.-translate-x-full]="!isMobileMenuOpen()"
+  class="fixed lg:static top-0 left-0 z-40 w-[280px] sm:w-[300px] h-screen shrink-0 flex flex-col justify-between border-r transition-transform duration-300 ease-in-out lg:translate-x-0"
   style="background: var(--bg-sidebar); border-color: var(--border)"
 >
   <div>
     <!-- Logo -->
     <div class="flex items-center gap-2.5 px-6 py-6">
-      <div class="mark w-7 h-7 rounded-[9px]"></div>
+      <div>💳</div>
       <span
         class="font-display font-semibold text-[17px] tracking-tight"
         style="color: var(--text-primary)"
-        >App Carlos</span
       >
+        Billetera Digital
+      </span>
     </div>
 
     <!-- Nav -->
@@ -21,6 +59,7 @@
           [routerLink]="item.router"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
+          (click)="closeMobileMenu()"
           class="nav-item flex items-center gap-3 pl-3.5 pr-3 py-2.5 rounded-xl text-sm font-medium"
           style="color: var(--text-primary)"
         >
@@ -36,7 +75,7 @@
   <div class="px-4 py-4 border-t" style="border-color: var(--border)">
     <button
       class="w-full flex items-center gap-3 px-2.5 py-2 rounded-xl hover:bg-white/[0.03] transition-colors"
-      (click)="logout()"
+      (click)="logout(); closeMobileMenu()"
     >
       <div
         class="w-9 h-9 rounded-full flex items-center justify-center shrink-0"

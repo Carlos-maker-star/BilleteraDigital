@@ -36,4 +36,15 @@ export class SidebarMenuOptionsComponent {
       }
     });
   }
+
+  // Estado para abrir/cerrar menú en móviles
+  isMobileMenuOpen = signal<boolean>(false);
+
+  toggleMobileMenu(): void {
+    this.isMobileMenuOpen.update((prev) => !prev);
+  }
+
+  closeMobileMenu(): void {
+    this.isMobileMenuOpen.set(false);
+  }
 }
