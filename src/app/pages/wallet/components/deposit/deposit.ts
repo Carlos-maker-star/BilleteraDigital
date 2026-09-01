@@ -25,12 +25,12 @@ export class DepositFormComponent {
 
   isSubmitDisabled(): boolean {
     const val = this.amountInput();
-    return this.isProcessing() || val === null || val <= 0;
+    return this.isProcessing() || val === null || val <= 0 || val > 5000;
   }
 
   submitDeposit() {
     const val = this.amountInput();
-    if (val && val > 0) {
+    if (val && val > 0 && val <= 5000) {
       this.onSubmitDeposit.emit(val);
       this.amountInput.set(null);
     }
