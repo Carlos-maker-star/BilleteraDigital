@@ -1,59 +1,25 @@
-# AppAngular
+Billetera Digital - SPA (Single Page Application)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.21.
+Aplicación web interactiva desarrollada con Angular para la gestión de finanzas personales, manejo de billetera virtual, transferencias y trazabilidad de transacciones en tiempo real.
 
-## Development server
+🚀 Tecnologías utilizadas
 
-To start a local development server, run:
+Angular 19 (Standalone Components, Signals & Computed State)
 
-```bash
-ng serve
-```
+TypeScript & HTML5 / Tailwind CSS
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+RxJS & State Management reactivo
 
-## Code scaffolding
+LocalStorage API (Persistencia local de datos y sesiones)
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+🛠️ Funcionalidades
 
-```bash
-ng generate component component-name
-```
+Autenticación y Sesiones: Registro e inicio de sesión de usuarios con almacenamiento y validación de sesión activa.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Gestión de Saldos: Actualización reactiva y en tiempo real del saldo disponible tras cada operación.
 
-```bash
-ng generate --help
-```
+Depósitos y Retiros: Registro transaccional seguro (DEPOSIT / WITHDRAWAL) con validación automática de fondos suficientes.
 
-## Building
+Historial Filtrado por Usuario: Trazabilidad de transacciones aislada y personalizada de forma estricta según el usuario autenticado.
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Perfil de Usuario y Seguridad: Visualización de datos de la cuenta y control para alternar la visibilidad de la contraseña.
